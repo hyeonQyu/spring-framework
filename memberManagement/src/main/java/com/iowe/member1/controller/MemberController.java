@@ -1,11 +1,16 @@
 package com.iowe.member1.controller;
 
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,7 +31,7 @@ public class MemberController {
 	
 	// method가 GET방식이면 명시해주지 않아도 됨, value만 있을 경우 value=도 생략 가능
 	@RequestMapping(value="/memJoin", method=RequestMethod.POST)
-	public String memJoin(Member member) {//Model model, HttpServletRequest request) {
+	public String memJoin(@ModelAttribute("mem") Member member) {//Model model, HttpServletRequest request) {
 //		String memId = request.getParameter("memId");
 //		String memPw = request.getParameter("memPw");
 //		String memMail = request.getParameter("memMail");
@@ -64,6 +69,15 @@ public class MemberController {
 		
 		
 		return "memLoginOk";
+	}
+	
+	// 뷰에서 serverTime이란 이름을 사용하면서 해당 메소드를 호출시킬 수 있음
+	@ModelAttribute("serverTime")
+	public String getServerTime(Locale locale) {
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		
+		return dateFormat.format(date);
 	}
 	
 }
