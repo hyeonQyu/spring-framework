@@ -3,6 +3,8 @@ package com.nextwin.ex;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
+import com.nextwin.pencil.Pencil;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -19,10 +21,16 @@ public class Main {
 //		myInfo.getInfo();
 //		ctx.close();
 		
+//		String configLocation = "classpath:applicationCTX.xml";
+//		AbstractApplicationContext ctx = new GenericXmlApplicationContext(configLocation);
+//		StudentInfo studentInfo = ctx.getBean("studentInfo", StudentInfo.class);
+//		studentInfo.getStudentInfo();
+//		ctx.close();
+		
 		String configLocation = "classpath:applicationCTX.xml";
 		AbstractApplicationContext ctx = new GenericXmlApplicationContext(configLocation);
-		StudentInfo studentInfo = ctx.getBean("studentInfo", StudentInfo.class);
-		studentInfo.getStudentInfo();
+		Pencil pencil = ctx.getBean("pencil", Pencil.class);
+		pencil.use();
 		ctx.close();
 	}
 
