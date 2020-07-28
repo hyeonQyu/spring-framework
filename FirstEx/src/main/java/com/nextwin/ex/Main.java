@@ -1,8 +1,10 @@
 package com.nextwin.ex;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
+import com.nextwin.config.ApplicationConfig;
 import com.nextwin.pencil.Pencil;
 
 public class Main {
@@ -27,10 +29,18 @@ public class Main {
 //		studentInfo.getStudentInfo();
 //		ctx.close();
 		
-		String configLocation = "classpath:applicationCTX.xml";
-		AbstractApplicationContext ctx = new GenericXmlApplicationContext(configLocation);
-		Pencil pencil = ctx.getBean("pencil", Pencil.class);
-		pencil.use();
+//		String configLocation = "classpath:applicationCTX.xml";
+//		AbstractApplicationContext ctx = new GenericXmlApplicationContext(configLocation);
+//		Pencil pencil = ctx.getBean("pencil", Pencil.class);
+//		pencil.use();
+//		ctx.close();
+		
+		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		Person person1 = ctx.getBean("person1", Person.class);
+		person1.getInfo();
+		System.out.println();
+		Person person2 = ctx.getBean("person2", Person.class);
+		person2.getInfo();
 		ctx.close();
 	}
 
