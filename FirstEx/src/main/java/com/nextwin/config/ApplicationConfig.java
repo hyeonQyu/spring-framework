@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 
 import com.nextwin.ex.Person;
 
 @Configuration
+@ImportResource("classpath:applicationCTX2.xml")
 public class ApplicationConfig {
 
 	@Bean

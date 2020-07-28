@@ -43,9 +43,20 @@ public class Main {
 //		person2.getInfo();
 //		ctx.close();
 		
-		AbstractApplicationContext ctx = new GenericXmlApplicationContext("classpath:applicationCTX.xml");
+//		AbstractApplicationContext ctx = new GenericXmlApplicationContext("classpath:applicationCTX.xml");
+//		Person person1 = ctx.getBean("person1", Person.class);
+//		person1.getInfo();
+//		ctx.close();
+		
+		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 		Person person1 = ctx.getBean("person1", Person.class);
+		Person person2 = ctx.getBean("person2", Person.class);
+		Person person3 = ctx.getBean("person3", Person.class);
 		person1.getInfo();
+		System.out.println();
+		person2.getInfo();
+		System.out.println();
+		person3.getInfo();
 		ctx.close();
 	}
 
