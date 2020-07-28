@@ -68,5 +68,10 @@
 	
 	<!-- pencil을 다른 연필로 바꿔야 하는 경우 config 파일의 class부분만 수정하면 됨(Java 코드 수정이 불필요) -->
 	<bean id="pencil" class="com.nextwin.pencil.Pencil6BWithEraser"/>
+	
+	<bean id="life1" class="com.nextwin.ex.Life1">
+		<property name="name" value="LIFE1"/>
+		<property name="num" value="1"/>
+	</bean>
 
 </beans>
