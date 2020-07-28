@@ -35,12 +35,17 @@ public class Main {
 //		pencil.use();
 //		ctx.close();
 		
-		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+//		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+//		Person person1 = ctx.getBean("person1", Person.class);
+//		person1.getInfo();
+//		System.out.println();
+//		Person person2 = ctx.getBean("person2", Person.class);
+//		person2.getInfo();
+//		ctx.close();
+		
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext("classpath:applicationCTX.xml");
 		Person person1 = ctx.getBean("person1", Person.class);
 		person1.getInfo();
-		System.out.println();
-		Person person2 = ctx.getBean("person2", Person.class);
-		person2.getInfo();
 		ctx.close();
 	}
 
