@@ -13,10 +13,16 @@ public class Main {
 //		myCalculator.add();
 //		myCalculator.sub();
 		
+//		String configLocation = "classpath:applicationCTX.xml";
+//		AbstractApplicationContext ctx = new GenericXmlApplicationContext(configLocation);
+//		MyInfo myInfo = ctx.getBean("myInfo", MyInfo.class);
+//		myInfo.getInfo();
+//		ctx.close();
+		
 		String configLocation = "classpath:applicationCTX.xml";
 		AbstractApplicationContext ctx = new GenericXmlApplicationContext(configLocation);
-		MyInfo myInfo = ctx.getBean("myInfo", MyInfo.class);
-		myInfo.getInfo();
+		StudentInfo studentInfo = ctx.getBean("studentInfo", StudentInfo.class);
+		studentInfo.getStudentInfo();
 		ctx.close();
 	}
 

@@ -41,5 +41,22 @@
 			<ref bean="bmiCalculator"/>
 		</property>
 	</bean>
+	
+	<bean id="student" class="com.nextwin.ex.Student">
+		<constructor-arg>
+			<value>홍길동</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>15세</value>
+		</constructor-arg>
+		<constructor-arg value="2학년"/>
+		<constructor-arg value="30번"/>
+	</bean>
+	
+	<bean id="studentInfo" class="com.nextwin.ex.StudentInfo">
+		<constructor-arg>
+			<ref bean="student"/>
+		</constructor-arg>
+	</bean>
 
 </beans>
