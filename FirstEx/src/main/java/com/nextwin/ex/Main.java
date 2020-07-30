@@ -92,7 +92,15 @@ public class Main {
 //		ctx.close();
 //		gCtx.close();
 		
-		AbstractApplicationContext ctx = new GenericXmlApplicationContext("classpath:applicationCTX3.xml");	
+//		AbstractApplicationContext ctx = new GenericXmlApplicationContext("classpath:applicationCTX3.xml");	
+//		AdminConnection2 adminConnection2 = ctx.getBean("adminConnection2", AdminConnection2.class);
+//		System.out.println("admin ID : " + adminConnection2.getAdminId());
+//		System.out.println("admin PW : " + adminConnection2.getAdminPw());
+//		System.out.println("sub admin ID : " + adminConnection2.getSubAdminId());
+//		System.out.println("sub admin PW : " + adminConnection2.getSubAdminPw());
+//		ctx.close();
+		
+		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 		AdminConnection2 adminConnection2 = ctx.getBean("adminConnection2", AdminConnection2.class);
 		System.out.println("admin ID : " + adminConnection2.getAdminId());
 		System.out.println("admin PW : " + adminConnection2.getAdminPw());
