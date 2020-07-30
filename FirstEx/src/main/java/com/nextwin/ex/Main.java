@@ -70,27 +70,35 @@ public class Main {
 //		ctx.refresh();
 //		ctx.close();
 		
-		ConfigurableApplicationContext ctx = new GenericXmlApplicationContext();
-		ConfigurableEnvironment env = ctx.getEnvironment();
-		MutablePropertySources propertySources = env.getPropertySources();
+//		ConfigurableApplicationContext ctx = new GenericXmlApplicationContext();
+//		ConfigurableEnvironment env = ctx.getEnvironment();
+//		MutablePropertySources propertySources = env.getPropertySources();
+//		
+//		try {
+//			propertySources.addLast(new ResourcePropertySource("classpath:admin.properties"));
+//			
+//			System.out.println(env.getProperty("admin.id"));
+//			System.out.println(env.getProperty("admin.pw"));
+//		} catch (IOException e) {}
+//		
+//		GenericXmlApplicationContext gCtx = (GenericXmlApplicationContext)ctx;
+//		gCtx.load("classpath:applicationCTX.xml");
+//		gCtx.refresh();
+//		
+//		AdminConnection adminConnection = gCtx.getBean("adminConnection", AdminConnection.class);
+//		System.out.println("admin ID: " + adminConnection.getAdminId());
+//		System.out.println("admin PW: " + adminConnection.getAdminPw());
+//		
+//		ctx.close();
+//		gCtx.close();
 		
-		try {
-			propertySources.addLast(new ResourcePropertySource("classpath:admin.properties"));
-			
-			System.out.println(env.getProperty("admin.id"));
-			System.out.println(env.getProperty("admin.pw"));
-		} catch (IOException e) {}
-		
-		GenericXmlApplicationContext gCtx = (GenericXmlApplicationContext)ctx;
-		gCtx.load("classpath:applicationCTX.xml");
-		gCtx.refresh();
-		
-		AdminConnection adminConnection = gCtx.getBean("adminConnection", AdminConnection.class);
-		System.out.println("admin ID: " + adminConnection.getAdminId());
-		System.out.println("admin PW: " + adminConnection.getAdminPw());
-		
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext("classpath:applicationCTX3.xml");	
+		AdminConnection2 adminConnection2 = ctx.getBean("adminConnection2", AdminConnection2.class);
+		System.out.println("admin ID : " + adminConnection2.getAdminId());
+		System.out.println("admin PW : " + adminConnection2.getAdminPw());
+		System.out.println("sub admin ID : " + adminConnection2.getSubAdminId());
+		System.out.println("sub admin PW : " + adminConnection2.getSubAdminPw());
 		ctx.close();
-		gCtx.close();
 	}
 
 }
