@@ -1,8 +1,14 @@
 package com.nextwin.ex;
 
+import java.io.IOException;
+
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.MutablePropertySources;
+import org.springframework.core.io.support.ResourcePropertySource;
 
 import com.nextwin.config.ApplicationConfig;
 import com.nextwin.pencil.Pencil;
@@ -59,10 +65,32 @@ public class Main {
 //		person3.getInfo();
 //		ctx.close();
 		
-		GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
-		ctx.load("classpath:applicationCTX.xml");
-		ctx.refresh();
+//		GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
+//		ctx.load("classpath:applicationCTX.xml");
+//		ctx.refresh();
+//		ctx.close();
+		
+		ConfigurableApplicationContext ctx = new GenericXmlApplicationContext();
+		ConfigurableEnvironment env = ctx.getEnvironment();
+		MutablePropertySources propertySources = env.getPropertySources();
+		
+		try {
+			propertySources.addLast(new ResourcePropertySource("classpath:admin.properties"));
+			
+			System.out.println(env.getProperty("admin.id"));
+			System.out.println(env.getProperty("admin.pw"));
+		} catch (IOException e) {}
+		
+		GenericXmlApplicationContext gCtx = (GenericXmlApplicationContext)ctx;
+		gCtx.load("classpath:applicationCTX.xml");
+		gCtx.refresh();
+		
+		AdminConnection adminConnection = gCtx.getBean("adminConnection", AdminConnection.class);
+		System.out.println("admin ID: " + adminConnection.getAdminId());
+		System.out.println("admin PW: " + adminConnection.getAdminPw());
+		
 		ctx.close();
+		gCtx.close();
 	}
 
 }

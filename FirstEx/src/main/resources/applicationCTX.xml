@@ -73,5 +73,7 @@
 		<property name="name" value="LIFE1"/>
 		<property name="num" value="1"/>
 	</bean>
+	
+	<bean id="adminConnection" class="com.nextwin.ex.AdminConnection"/>
 
 </beans>
