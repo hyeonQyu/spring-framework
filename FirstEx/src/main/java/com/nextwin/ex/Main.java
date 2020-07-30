@@ -12,6 +12,8 @@ import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.io.support.ResourcePropertySource;
 
 import com.nextwin.config.ApplicationConfig;
+import com.nextwin.config.ApplicationConfigDev;
+import com.nextwin.config.ApplicationConfigRun;
 import com.nextwin.pencil.Pencil;
 
 public class Main {
@@ -112,15 +114,23 @@ public class Main {
 		String config = null;
 		Scanner scanner = new Scanner(System.in);
 		String str = scanner.next();
+		scanner.close();
 		if(!(str.equals("dev") || str.equals("run")))
 			return;
 		config = str;
-		scanner.close();
 		
-		GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
+//		GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
+//		ctx.getEnvironment().setActiveProfiles(config);
+//		// config의 값에 따라 아래 두 xml 파일 중 하나가 사용됨
+//		ctx.load("applicationCTX_dev.xml", "applicationCTX_run.xml");
+//		ctx.refresh();
+//		ServerInfo info = ctx.getBean("serverInfo", ServerInfo.class);
+//		System.out.println("ip " + info.getIp());
+//		System.out.println("port " + info.getPort());
+//		ctx.close();
+		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
 		ctx.getEnvironment().setActiveProfiles(config);
-		// config의 값에 따라 아래 두 xml 파일 중 하나가 사용됨
-		ctx.load("applicationCTX_dev.xml", "applicationCTX_run.xml");
+		ctx.register(ApplicationConfigDev.class, ApplicationConfigRun.class);
 		ctx.refresh();
 		ServerInfo info = ctx.getBean("serverInfo", ServerInfo.class);
 		System.out.println("ip " + info.getIp());
