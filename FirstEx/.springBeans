@@ -13,6 +13,7 @@
 		<config>src/main/resources/applicationCTX_dev.xml</config>
 		<config>src/main/resources/applicationCTX_run.xml</config>
 		<config>src/main/resources/applicationCtxAop.xml</config>
+		<config>src/main/resources/applicationCtxAop2.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
