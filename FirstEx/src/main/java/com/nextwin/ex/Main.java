@@ -1,6 +1,7 @@
 package com.nextwin.ex;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -100,12 +101,30 @@ public class Main {
 //		System.out.println("sub admin PW : " + adminConnection2.getSubAdminPw());
 //		ctx.close();
 		
-		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-		AdminConnection2 adminConnection2 = ctx.getBean("adminConnection2", AdminConnection2.class);
-		System.out.println("admin ID : " + adminConnection2.getAdminId());
-		System.out.println("admin PW : " + adminConnection2.getAdminPw());
-		System.out.println("sub admin ID : " + adminConnection2.getSubAdminId());
-		System.out.println("sub admin PW : " + adminConnection2.getSubAdminPw());
+//		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+//		AdminConnection2 adminConnection2 = ctx.getBean("adminConnection2", AdminConnection2.class);
+//		System.out.println("admin ID : " + adminConnection2.getAdminId());
+//		System.out.println("admin PW : " + adminConnection2.getAdminPw());
+//		System.out.println("sub admin ID : " + adminConnection2.getSubAdminId());
+//		System.out.println("sub admin PW : " + adminConnection2.getSubAdminPw());
+//		ctx.close();
+		
+		String config = null;
+		Scanner scanner = new Scanner(System.in);
+		String str = scanner.next();
+		if(!(str.equals("dev") || str.equals("run")))
+			return;
+		config = str;
+		scanner.close();
+		
+		GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
+		ctx.getEnvironment().setActiveProfiles(config);
+		// config의 값에 따라 아래 두 xml 파일 중 하나가 사용됨
+		ctx.load("applicationCTX_dev.xml", "applicationCTX_run.xml");
+		ctx.refresh();
+		ServerInfo info = ctx.getBean("serverInfo", ServerInfo.class);
+		System.out.println("ip " + info.getIp());
+		System.out.println("port " + info.getPort());
 		ctx.close();
 	}
 
