@@ -4,13 +4,18 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.nextwin.member.Member;
 
 /**
  * Handles requests for the application home page.
@@ -54,6 +59,28 @@ public class HomeController {
 		mv.addObject("id", 30);
 		mv.setViewName("board/reply");
 		return mv;
+	}
+	
+	@RequestMapping("board/confirmId")
+	public String confirmId(HttpServletRequest request, Model model) {
+		String id = request.getParameter("id");
+		String pw = request.getParameter("pw");
+		model.addAttribute("id", id);
+		model.addAttribute("pw", pw);
+		return "board/confirmId";
+	}
+	
+	@RequestMapping("board/checkId")
+	public String checkId(@RequestParam("id") String id, @RequestParam("pw") int pw, Model model) {
+		model.addAttribute("identify", id);
+		model.addAttribute("password", pw);
+		return "board/checkId";
+	}
+	
+	@RequestMapping("member/join")
+	public String joinData(Member member) {
+		// 자동으로 member 객체의 속성이 set됨
+		return "member/join";
 	}
 	
 }
