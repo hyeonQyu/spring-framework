@@ -83,4 +83,34 @@ public class HomeController {
 		return "member/join";
 	}
 	
+	@RequestMapping("/index")
+	public String goIndex() {
+		return "index";
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/student")
+	public String goStudent(HttpServletRequest request, Model model) {
+		System.out.println("RequestMethod.GET");
+		
+		String id = request.getParameter("id");
+		System.out.println("id: " + id);
+		model.addAttribute("studentId", id);
+		
+		return "student/studentId";
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/student")
+	public ModelAndView goStudent(HttpServletRequest request) {
+		System.out.println("RequestMethod.POST");
+		
+		String id = request.getParameter("id");
+		System.out.println("id: " + id);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("student/studentId");
+		mv.addObject("studentId", id);
+		
+		return mv;
+	}
+	
 }
