@@ -10,12 +10,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nextwin.member.Member;
+import com.nextwin.student.StudentInformation;
 
 /**
  * Handles requests for the application home page.
@@ -111,6 +113,11 @@ public class HomeController {
 		mv.addObject("studentId", id);
 		
 		return mv;
+	}
+	
+	@RequestMapping("/studentView")
+	public String goStudentView(@ModelAttribute("studentInfo") StudentInformation studentInformation) {
+		return "studentView";
 	}
 	
 }

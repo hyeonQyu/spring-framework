@@ -8,8 +8,15 @@
 </head>
 <body>
 
-	<form action="student" method="post">
-		student id : <input type="text" name="id"><br/>
+	<%
+		String context = request.getContextPath();
+	%>
+
+	<form action="<%= context %>/studentView" method="get">
+		이름 : <input type="text" name="name"><br/>
+		나이 : <input type="number" name="age"><br/>
+		학년 : <input type="number" name="grade"><br/>
+		반 : <input type="number" name="classNum"><br/>
 		<input type="submit" value="전송">
 	</form>
 
