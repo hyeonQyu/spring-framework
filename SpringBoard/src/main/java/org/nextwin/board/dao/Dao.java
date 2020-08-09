@@ -143,6 +143,34 @@ public class Dao {
 		return dto;
 	}
 	
+	public void doModify(Dto dto) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			connection = dataSource.getConnection();
+			String sql = "update board set bName = ?, bTitle = ?, bContent = ? where bId = ?";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, dto.getName());
+			preparedStatement.setString(2, dto.getTitle());
+			preparedStatement.setString(3, dto.getContent());
+			preparedStatement.setInt(4, dto.getId());
+			
+			preparedStatement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(preparedStatement != null)
+					preparedStatement.close();
+				if(connection != null)
+					connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	private void upHit(int id) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
