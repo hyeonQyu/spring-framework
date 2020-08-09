@@ -97,4 +97,74 @@ public class Dao {
 		}
 	}
 	
+	public Dto getContentView(int id) {
+		upHit(id);
+		
+		Dto dto = null;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		try {
+			connection = dataSource.getConnection();
+			String sql = "select * from board where bId = ?";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, id);
+			
+			resultSet = preparedStatement.executeQuery();
+			if(resultSet.next()) {
+				id = resultSet.getInt("bId");
+				String name = resultSet.getString("bName");
+				String title = resultSet.getString("bTitle");
+				String content = resultSet.getString("bContent");
+				Timestamp date = resultSet.getTimestamp("bDate");
+				int hit = resultSet.getInt("bHit");
+				int group = resultSet.getInt("bGroup");
+				int step = resultSet.getInt("bStep");
+				int indent = resultSet.getInt("bIndent");
+				
+				dto = new Dto(id, name, title, content, date, hit, group, step, indent);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {				
+				if(resultSet != null)
+					resultSet.close();
+				if(preparedStatement != null)
+					preparedStatement.close();
+				if(connection != null)
+					connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return dto;
+	}
+	
+	private void upHit(int id) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = dataSource.getConnection();
+			String sql = "update board set bHit = bHit + 1 where bId = ?";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, id);
+			
+			preparedStatement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {				
+				if(preparedStatement != null)
+					preparedStatement.close();
+				if(connection != null)
+					connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 }
