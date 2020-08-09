@@ -69,4 +69,32 @@ public class Dao {
 		return dtos;
 	}
 	
+	public void doWrite(Dto dto) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			connection = dataSource.getConnection();
+			String sql = "insert into board (bId, bName, bTitle, bContent, bHit, bGroup, bStep, bIndent) "
+												+ "values (board_seq.nextval, ?, ?, ?, 0, board_seq.currval, 0, 0)";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, dto.getName());
+			preparedStatement.setString(2, dto.getTitle());
+			preparedStatement.setString(3, dto.getContent());
+			
+			preparedStatement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(preparedStatement != null)
+					preparedStatement.close();
+				if(connection != null)
+					connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 }
