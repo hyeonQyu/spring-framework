@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.nextwin.board.command.Command;
 import org.nextwin.board.command.ContentCommand;
+import org.nextwin.board.command.DeleteCommand;
 import org.nextwin.board.command.ListCommand;
 import org.nextwin.board.command.ModifyCommand;
 import org.nextwin.board.command.WriteCommand;
@@ -52,6 +53,15 @@ public class BController {
 	public String modify(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
 		command = new ModifyCommand();
+		command.execute(model);
+		
+		return "redirect:list";
+	}
+	
+	@RequestMapping("delete")
+	public String delete(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		command = new DeleteCommand();
 		command.execute(model);
 		
 		return "redirect:list";
