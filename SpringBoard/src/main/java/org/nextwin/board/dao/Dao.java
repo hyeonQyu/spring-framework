@@ -19,7 +19,7 @@ public class Dao {
 	public Dao() {
 		try {
 			Context context = new InitialContext();
-			dataSource = (DataSource)context.lookup("java:comp/env/jdbc/Oracle18c");
+			dataSource = (DataSource)context.lookup("java:comp/env/jdbc_mariadb");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -76,7 +76,7 @@ public class Dao {
 		try {
 			connection = dataSource.getConnection();
 			String sql = "insert into board (bId, bName, bTitle, bContent, bHit, bGroup, bStep, bIndent) "
-												+ "values (board_seq.nextval, ?, ?, ?, 0, board_seq.currval, 0, 0)";
+												+ "values (next value for seq_board, ?, ?, ?, 0, previous value for seq_board, 0, 0)";
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, dto.getName());
 			preparedStatement.setString(2, dto.getTitle());
